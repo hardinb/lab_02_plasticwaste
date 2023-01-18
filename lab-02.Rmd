@@ -19,7 +19,7 @@ plastic_waste <- read.csv("data/plastic-waste.csv")
 
 ### Exercise 1
 
-This code chunk creates a set of histograms showing the distribution of plastic waste per capita (pwpc) separated by country. The histograms show that African countries typically have the least amount of pwpc, and that most countries have a pwpc of < 0.5 kg per person. There is one country in North America with a very high pwpc, which we know is Trinidad and Tobago. 
+This code chunk creates a set of histograms showing the distribution of plastic waste per capita (pwpc) separated by country. The histograms show that African countries typically have the least amount of pwpc, and that most countries have a pwpc of < 0.5 kg per person. There is one country in North America with a very high pwpc, which we know from the lab instructions is Trinidad and Tobago. 
 
 ```{r plastic-waste-continent}
 ggplot(data = plastic_waste,
@@ -74,20 +74,33 @@ ggplot(data = plastic_waste,
   geom_violin()
 ```
 
-### Exercise 5
+### Exercise 4.1
 
-Remove this text, and add your answer for Exercise 5 here.
+The scatterplot below shows the relationship between plastic waste per capita (pwpc) and the amount of mismanaged plastic waste per capita. To make the plot easier to interpret, I have filtered out Trinidad and Tobago, which is an extreme outleir with a pwpc greater than 3. It looks like there may be a few different relationships in this dataset, with a subset of datapoints showing a positive linear relationship between pwpc and mismanaged pwpc, while another subset shows no relationship because the amount of mismanaged pwpc is consistently low regardless of the amount of pwpc.
 
 ```{r plastic-waste-mismanaged}
-# insert code here
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = mismanaged_plastic_waste_per_cap, 
+                                 y = plastic_waste_per_cap))+
+  geom_point()
 ```
 
-### Exercise 6
+### Exercise 4.2
 
-Remove this text, and add your answer for Exercise 6 here.
+Now, we use color to show which continent each datapoint in the scatterplot is from. Now we can see that the relationship between pwpc and mismanaged pwpc seems to differ between different continents. 
+
+The relationship appears to be positive and linear for countries in Africa and Oceana. This shows that for within these continents, a greater amount of plastic waste is typically associated with a greater amount of mismanaged plastic waste.
+
+Conversely, there does not appear to be much of a linear relationship for countries in Europe and South America. Within these continents, it looks like countries typically have a low amount of mismanaged plastic waste, regardless of their overall amount of plastic waste.
+
+Countries within Asia and North America seem to show a relationship between pwpc and mismanaged pwpc that is somewhere in between these two patterns.
 
 ```{r plastic-waste-mismanaged-continent}
-# insert code here
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = mismanaged_plastic_waste_per_cap, 
+                                 y = plastic_waste_per_cap,
+                                 color = continent))+
+  geom_point(size = 2)
 ```
 
 ### Exercise 7
