@@ -53,9 +53,11 @@ ggplot(data = plastic_waste,
 
     ## Warning: Removed 51 rows containing non-finite values (`stat_density()`).
 
-![](lab-02_files/figure-gfm/plastic-waste-density-1.png)<!-- --> Now, if
-we adjust the alpha to 0.3, the distributions are transparent, allowing
-us to see the full distribution of pwpc for each continent all at once.
+![](lab-02_files/figure-gfm/plastic-waste-density-1.png)<!-- -->
+
+Now, if we adjust the alpha to 0.3, the distributions are transparent,
+allowing us to see the full distribution of pwpc for each continent all
+at once.
 
 ``` r
 ggplot(data = plastic_waste,
@@ -82,13 +84,41 @@ is used to determine characteristics of all the points in the plot
 regardless of their value or level. In this case, we wanted the
 distributions to be equally transparent for all continents.
 
-### Exercise 4
+### Exercise 3.1
 
-Remove this text, and add your answer for Exercise 4 here.
+The plots below show the same information displayed in Exercises 1 & 2,
+this time presented as a box plot and as a violin plot.
+
+The box plot clearly shows the median pwpc score among countries in each
+continent as well as the countries that have unusually high pwpc scores
+(i.e., outliers) and how far those outliers are from the typical range
+of scores.
+
+Conversely, the violin plot does a nice job of showing how pwpc is
+distributed in each continent. For example, the fact that the violins(?)
+are more bottom heavy for Africa and South America shows that these
+continents have a greater proportion of countries with relatively low
+pwpc than other continents with more peaks and valleys.
 
 ``` r
-# insert code here
+ggplot(data = plastic_waste,
+       mapping = aes(x = continent, y = plastic_waste_per_cap))+
+  geom_boxplot()
 ```
+
+    ## Warning: Removed 51 rows containing non-finite values (`stat_boxplot()`).
+
+![](lab-02_files/figure-gfm/plastic-waste-violin-1.png)<!-- -->
+
+``` r
+ggplot(data = plastic_waste,
+       mapping = aes(x = continent, y = plastic_waste_per_cap))+
+  geom_violin()
+```
+
+    ## Warning: Removed 51 rows containing non-finite values (`stat_ydensity()`).
+
+![](lab-02_files/figure-gfm/plastic-waste-violin-2.png)<!-- -->
 
 ### Exercise 5
 
