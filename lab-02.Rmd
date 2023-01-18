@@ -1,7 +1,7 @@
 ---
 title: "Lab 02 - Plastic waste"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Ben Hardin"
+date: "1/17/2023"
 output: github_document
 ---
 
@@ -19,21 +19,41 @@ plastic_waste <- read.csv("data/plastic-waste.csv")
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
+This code chunk creates a set of histograms showing the distribution of plastic waste per capita (pwpc) separated by country. The histograms show that African countries typically have the least amount of pwpc, and that most countries have a pwpc of < 0.5 kg per person. There is one country in North America with a very high pwpc, which we know is Trinidad and Tobago. 
 
 ```{r plastic-waste-continent}
-# insert code here
+ggplot(data = plastic_waste,
+       aes(x = plastic_waste_per_cap))+
+  geom_histogram(binwidth = 0.2)+
+  facet_wrap(~ continent)
 ```
 
-### Exercise 2
+### Exercise 2.1
+
+Here we have displayed the same information from the histograms in a different way by plotting the density distribution of pwpc for each continent, separated by color. However, the graph is hard to read because the alpha level is too high (in this case, 1.0), so the distributions cover one another up.
 
 ```{r plastic-waste-density}
-# insert code here
+ggplot(data = plastic_waste,
+       aes(x = plastic_waste_per_cap,
+           color = continent,
+           fill = continent))+
+  geom_density()
+```
+Now, if we adjust the alpha to 0.3, the distributions are transparent, allowing us to see the full distribution of pwpc for each continent all at once.
+
+```{r plastic-waste-density-new-alpha}
+ggplot(data = plastic_waste,
+       aes(x = plastic_waste_per_cap,
+           color = continent,
+           fill = continent))+
+  geom_density(alpha = 0.3)
 ```
 
-### Exercise 3
+### Exercise 2.2
 
-Remove this text, and add your answer for Exercise 3 here.
+We mapped the color and fill of the curves to the aesthetics argument because this argument is used to map certain characteristics of the plot to the values or levels of a variable in the dataset. In this case, we wanted each level (i.e., each continent) to be represented by a separate distribution mapped to a unique color.
+
+We instead mapped the alpha to the geom argument because this argument is used to determine characteristics of all the points in the plot regardless of their value or level. In this case, we wanted the distributions to be equally transparent for all continents.
 
 ### Exercise 4
 
