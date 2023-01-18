@@ -103,24 +103,38 @@ ggplot(data = plastic_waste %>%
   geom_point(size = 2)
 ```
 
-### Exercise 7
+### Exercise 4.3
 
-Remove this text, and add your answer for Exercise 7 here.
+Below are two scatterplots showing the relationship between amount of plastic waste and (a) total population, and (b) coastal population. There doesn't seem to be much of a linear association between either population measure and amount of plastic waste, although there might be slightly more of a linear relationship for coastal population than for total population.
 
 ```{r plastic-waste-population-total}
-# insert code here
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = total_pop, y = plastic_waste_per_cap))+
+  geom_point()
 ```
 
 ```{r plastic-waste-population-coastal}
-# insert code here
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = coastal_pop, y = plastic_waste_per_cap))+
+  geom_point()
 ```
 
-### Exercise 8
+### Exercise 5.1
 
-Remove this text, and add your answer for Exercise 8 here.
+The code below recreates the scatterplot showing the relationship between the amount of plastic waste and the proportion of a country's total population that is coastal. 
+
+Overall, there doesn't seem to be much of a linear relationship between coastal population proportion and amount of plastic waste, although it looks like there may be a slight linear relationship for coastal population proportions that are less than about 0.75. Also it looks like several countries have a coastal population that is > 100% of their total population, which I am slightly confused by.
 
 ```{r recreate-viz}
-# insert code here
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = coastal_pop/total_pop, 
+                                                y = plastic_waste_per_cap))+
+  geom_point(aes(color = continent))+
+  geom_smooth(color = "black")+
+  scale_color_viridis_d()+
+  labs(x = "Coastal population proportion (Coastal/total population)",
+       y = "Plastic waste per capita",
+       color = "Continent")
 ```
 
 ## Pro-Tips

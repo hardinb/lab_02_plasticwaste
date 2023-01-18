@@ -171,25 +171,65 @@ ggplot(data = plastic_waste %>%
 
 ![](lab-02_files/figure-gfm/plastic-waste-mismanaged-continent-1.png)<!-- -->
 
-### Exercise 7
+### Exercise 4.3
 
-Remove this text, and add your answer for Exercise 7 here.
-
-``` r
-# insert code here
-```
-
-``` r
-# insert code here
-```
-
-### Exercise 8
-
-Remove this text, and add your answer for Exercise 8 here.
+Below are two scatterplots showing the relationship between amount of
+plastic waste and (a) total population, and (b) coastal population.
+There doesn’t seem to be much of a linear association between either
+population measure and amount of plastic waste, although there might be
+slightly more of a linear relationship for coastal population than for
+total population.
 
 ``` r
-# insert code here
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = total_pop, y = plastic_waste_per_cap))+
+  geom_point()
 ```
+
+    ## Warning: Removed 10 rows containing missing values (`geom_point()`).
+
+![](lab-02_files/figure-gfm/plastic-waste-population-total-1.png)<!-- -->
+
+``` r
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = coastal_pop, y = plastic_waste_per_cap))+
+  geom_point()
+```
+
+![](lab-02_files/figure-gfm/plastic-waste-population-coastal-1.png)<!-- -->
+
+### Exercise 5.1
+
+The code below recreates the scatterplot showing the relationship
+between the amount of plastic waste and the proportion of a country’s
+total population that is coastal.
+
+Overall, there doesn’t seem to be much of a linear relationship between
+coastal population proportion and amount of plastic waste, although it
+looks like there may be a slight linear relationship for coastal
+population proportions that are less than about 0.75. Also it looks like
+several countries have a coastal population that is \> 100% of their
+total population, which I am slightly confused by.
+
+``` r
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3), aes(x = coastal_pop/total_pop, 
+                                                y = plastic_waste_per_cap))+
+  geom_point(aes(color = continent))+
+  geom_smooth(color = "black")+
+  scale_color_viridis_d()+
+  labs(x = "Coastal population proportion (Coastal/total population)",
+       y = "Plastic waste per capita",
+       color = "Continent")
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 10 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 10 rows containing missing values (`geom_point()`).
+
+![](lab-02_files/figure-gfm/recreate-viz-1.png)<!-- -->
 
 ## Pro-Tips
 
