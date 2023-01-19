@@ -18,11 +18,11 @@ plastic_waste <- read.csv("data/plastic-waste.csv")
 ### Exercise 1
 
 This code chunk creates a set of histograms showing the distribution of
-plastic waste per capita (pwpc) separated by country. The histograms
-show that African countries typically have the least amount of pwpc, and
-that most countries have a pwpc of \< 0.5 kg per person. There is one
-country in North America with a very high pwpc, which we know from the
-lab instructions is Trinidad and Tobago.
+plastic waste per capita (PWPC) separated by country. The histograms
+show that African countries typically have the least amount of PWPC, and
+that most countries have a PWPC of \< 0.5 kg per person regardless of
+continent. There is one country in North America with a very high PWPC,
+which we know from the lab instructions is Trinidad and Tobago.
 
 ``` r
 ggplot(data = plastic_waste,
@@ -38,7 +38,7 @@ ggplot(data = plastic_waste,
 ### Exercise 2.1
 
 Here we have displayed the same information from the histograms in a
-different way by plotting the density distribution of pwpc for each
+different way by plotting the density distribution of PWPC for each
 continent, separated by color. However, the graph is hard to read
 because the alpha level is too high (in this case, 1.0), so the
 distributions cover one another up.
@@ -55,8 +55,8 @@ ggplot(data = plastic_waste,
 
 ![](lab-02_files/figure-gfm/plastic-waste-density-1.png)<!-- -->
 
-Now, if we adjust the alpha to 0.3, the distributions are transparent,
-allowing us to see the full distribution of pwpc for each continent all
+Now, if we adjust the alpha to 0.25, the distributions are transparent,
+allowing us to see the full distribution of PWPC for each continent all
 at once.
 
 ``` r
@@ -64,7 +64,7 @@ ggplot(data = plastic_waste,
        aes(x = plastic_waste_per_cap,
            color = continent,
            fill = continent))+
-  geom_density(alpha = 0.3)
+  geom_density(alpha = 0.25)
 ```
 
     ## Warning: Removed 51 rows containing non-finite values (`stat_density()`).
@@ -89,16 +89,16 @@ distributions to be equally transparent for all continents.
 The plots below show the same information displayed in Exercises 1 & 2,
 this time presented as a box plot and as a violin plot.
 
-The box plot clearly shows the median pwpc score among countries in each
-continent as well as the countries that have unusually high pwpc scores
+The box plot clearly shows the median PWPC score among countries in each
+continent as well as the countries that have unusually high PWPC scores
 (i.e., outliers) and how far those outliers are from the typical range
 of scores.
 
-Conversely, the violin plot does a nice job of showing how pwpc is
+Conversely, the violin plot does a nice job of showing how PWPC is
 distributed in each continent. For example, the fact that the violins(?)
 are more bottom heavy for Africa and South America shows that these
 continents have a greater proportion of countries with relatively low
-pwpc than other continents with more peaks and valleys.
+PWPC than other continents with more peaks and valleys.
 
 ``` r
 ggplot(data = plastic_waste,
@@ -123,14 +123,14 @@ ggplot(data = plastic_waste,
 ### Exercise 4.1
 
 The scatterplot below shows the relationship between plastic waste per
-capita (pwpc) and the amount of mismanaged plastic waste per capita. To
+capita (PWPC) and the amount of mismanaged plastic waste per capita. To
 make the plot easier to interpret, I have filtered out Trinidad and
-Tobago, which is an extreme outleir with a pwpc greater than 3. It looks
+Tobago, which is an extreme outleir with a PWPC greater than 3. It looks
 like there may be a few different relationships in this dataset, with a
-subset of datapoints showing a positive linear relationship between pwpc
-and mismanaged pwpc, while another subset shows no relationship because
-the amount of mismanaged pwpc is consistently low regardless of the
-amount of pwpc.
+subset of datapoints showing a positive linear relationship between PWPC
+and mismanaged PWPC, while another subset shows no relationship because
+the amount of mismanaged PWPC is consistently low regardless of the
+amount of PWPC.
 
 ``` r
 ggplot(data = plastic_waste %>%
@@ -144,13 +144,13 @@ ggplot(data = plastic_waste %>%
 ### Exercise 4.2
 
 Now, we use color to show which continent each datapoint in the
-scatterplot is from. Now we can see that the relationship between pwpc
-and mismanaged pwpc seems to differ between different continents.
+scatterplot is from. Now we can see that the relationship between PWPC
+and mismanaged PWPC seems to differ between different continents.
 
 The relationship appears to be positive and linear for countries in
-Africa and Oceana. This shows that for within these continents, a
-greater amount of plastic waste is typically associated with a greater
-amount of mismanaged plastic waste.
+Africa and Oceana. This shows that for countries within these
+continents, a greater amount of plastic waste is typically associated
+with a greater amount of mismanaged plastic waste.
 
 Conversely, there does not appear to be much of a linear relationship
 for countries in Europe and South America. Within these continents, it
@@ -158,7 +158,7 @@ looks like countries typically have a low amount of mismanaged plastic
 waste, regardless of their overall amount of plastic waste.
 
 Countries within Asia and North America seem to show a relationship
-between pwpc and mismanaged pwpc that is somewhere in between these two
+between PWPC and mismanaged PWPC that is somewhere in between these two
 patterns.
 
 ``` r
@@ -230,6 +230,43 @@ ggplot(data = plastic_waste %>%
     ## Warning: Removed 10 rows containing missing values (`geom_point()`).
 
 ![](lab-02_files/figure-gfm/recreate-viz-1.png)<!-- -->
+
+### Bonus for fun.
+
+For fun, I wanted to try remaking some of the earlier visualizations of
+the distribution of PWPC by continent using some more visually appealing
+and informative plots.
+
+These are basically the same as the density distributions from Ex. 2 and
+the box plots from Ex. 3, except filtering out the extreme outlier
+Trinidad and Tobago and recoloring the graphs to be a little easier to
+read, more pleasant to look at, and hopefully more accessible.
+
+``` r
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3),
+       aes(x = plastic_waste_per_cap,
+           color = continent,
+           fill = continent))+
+  geom_density(alpha = 0.25, color = "black")+
+  scale_fill_viridis_d()+
+  labs(x = "Plastic waste per capita",
+       y = "Density")
+```
+
+![](lab-02_files/figure-gfm/plastic-waste-density-filtered-1.png)<!-- -->
+
+``` r
+ggplot(data = plastic_waste %>%
+         filter(plastic_waste_per_cap < 3),
+       mapping = aes(x = continent, y = plastic_waste_per_cap,
+                     fill = continent))+
+  geom_violin(alpha = 0.7)+
+  scale_fill_viridis_d()+
+  labs(x = "Continent", y = "Plastic Waste Per Cap")
+```
+
+![](lab-02_files/figure-gfm/plastic-waste-density-filtered-2.png)<!-- -->
 
 ## Pro-Tips
 
