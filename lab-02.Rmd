@@ -62,7 +62,7 @@ The plots below show the same information displayed in Exercises 1 & 2, this tim
 
 The box plot clearly shows the median PWPC score among countries in each continent as well as the countries that have unusually high PWPC scores (i.e., outliers) and how far those outliers are from the typical range of scores.
 
-Conversely, the violin plot does a nice job of showing how PWPC is distributed in each continent. For example, the fact that the violins(?) are more bottom heavy for Africa and South America shows that these continents have a greater proportion of countries with relatively low PWPC than other continents with more peaks and valleys.
+Conversely, the violin plot does a nice job of showing how PWPC is distributed in each continent. For example, the fact that the violins are more bottom heavy for Africa and South America shows that these continents have a greater proportion of countries with relatively low PWPC than other continents with more peaks and valleys.
 
 ```{r plastic-waste-violin}
 ggplot(data = plastic_waste,
@@ -93,7 +93,7 @@ The relationship appears to be positive and linear for countries in Africa and O
 
 Conversely, there does not appear to be much of a linear relationship for countries in Europe and South America. Within these continents, it looks like countries typically have a low amount of mismanaged plastic waste, regardless of their overall amount of plastic waste.
 
-Countries within Asia and North America seem to show a relationship between PWPC and mismanaged PWPC that is somewhere in between these two patterns.
+For countries within Asia and North America, PWPC and mismanaged PWPC seem to show a relationship that is somewhere in between these two patterns.
 
 ```{r plastic-waste-mismanaged-continent}
 ggplot(data = plastic_waste %>%
@@ -123,7 +123,7 @@ ggplot(data = plastic_waste %>%
 
 The code below recreates the scatterplot showing the relationship between the amount of plastic waste and the proportion of a country's total population that is coastal. 
 
-Overall, there doesn't seem to be much of a linear relationship between coastal population proportion and amount of plastic waste, although it looks like there may be a slight linear relationship for coastal population proportions that are less than about 0.75. Also it looks like several countries have a coastal population that is > 100% of their total population, which I am slightly confused by.
+Overall, there doesn't seem to be much of a linear relationship between coastal population proportion and amount of plastic waste, although it looks like there may be a slight linear relationship for coastal population proportions that are less than about 0.75.
 
 ```{r recreate-viz}
 ggplot(data = plastic_waste %>%
